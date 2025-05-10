@@ -1,0 +1,114 @@
+:root {
+    --bg-color: #f5f5f5;
+    --calculator-bg: #2d2d2d;
+    --display-bg: #1a1a1a;
+    --button-bg: #3b3b3b;
+    --button-hover: #4d4d4d;
+    --operator-bg: #ff9500;
+    --operator-hover: #ffaa33;
+    --action-bg: #a5a5a5;
+    --action-hover: #b8b8b8;
+    --text-light: #ffffff;
+    --text-dark: #000000;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .calculator {
+    width: 500px;
+    background-color: var(--calculator-bg);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .display {
+    background-color: var(--display-bg);
+    padding: 1.5rem;
+    text-align: right;
+    color: var(--text-light);
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .previous-operand {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    min-height: 24px;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+  
+  .current-operand {
+    font-size: 2.5rem;
+    font-weight: 300;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+  
+  .buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  button {
+    border: none;
+    outline: none;
+    padding: 1.2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background-color: var(--button-bg);
+    color: var(--text-light);
+    transition: all 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: var(--button-hover);
+  }
+  
+  button[data-action] {
+    background-color: var(--action-bg);
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+  
+  button[data-action]:hover {
+    background-color: var(--action-hover);
+  }
+  
+  button[data-action="add"],
+  button[data-action="subtract"],
+  button[data-action="multiply"],
+  button[data-action="divide"] {
+    background-color: var(--operator-bg);
+    color: var(--text-light);
+    font-size: 1.4rem;
+  }
+  
+  button[data-action="add"]:hover,
+  button[data-action="subtract"]:hover,
+  button[data-action="multiply"]:hover,
+  button[data-action="divide"]:hover {
+    background-color: var(--operator-hover);
+  }
+  
+  .span-two {
+    grid-column: span 2;
+  }
