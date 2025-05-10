@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thirumalai M | Full Stack Developer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #f43f5e;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --light-gray: #e2e8f0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--dark);
+      background-color: var(--light);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    section {
+      padding: 80px 0;
+    }
+    
+    h1, h2, h3, h4 {
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+    
+    p {
+      color: var(--gray);
+      margin-bottom: 15px;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--primary);
+      color: white;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .text-primary {
+      color: var(--primary);
+    }
+    
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 0;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .logo span {
+      color: var(--secondary);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    
+    nav ul li {
+      margin-left: 30px;
+    }
+    
+    nav ul li a {
+      font-weight: 500;
+      position: relative;
+    }
+    
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+    
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding-top: 120px;
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    }
+    
+    .hero-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 50px;
+    }
+    
+    .hero-text {
+      flex: 1;
+    }
+    
+    .hero-text h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    
+    .hero-text h1 span {
+      color: var(--primary);
+    }
+    
+    .hero-text p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--light-gray);
+      color: var(--dark);
+      transition: all 0.3s ease;
+    }
+    
+    .social-icons a:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* About Section */
+    .about-content {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+    
+    .about-text {
+      flex: 1;
+    }
+    
+    .about-text p {
+      margin-bottom: 20px;
+    }
+    
+    .about-image {
+      flex: 1;
+      text-align: center;
+    }
+    
+    .about-image img {
+      max-width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Skills Section */
+    .skills-container {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      padding: 40px;
+      border-radius: 20px;
+    }
+    
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+    }
+    
+    .skill-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .skill-card i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+    
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+    }
+    
+    .project-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .project-image {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .project-card:hover .project-image img {
+      transform: scale(1.1);
+    }
+    
+    .project-content {
+      padding: 20px;
+    }
+    
+    .project-content h3 {
+      margin-bottom: 10px;
+    }
+    
+    .project-content p {
+      margin-bottom: 15px;
+    }
+    
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .tech-tag {
+      background: var(--light-gray);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .project-links {
+      display: flex;
+      gap: 15px;
+    }
+    
+    /* Experience Section */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100%;
+      background: var(--light-gray);
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 50px;
+    }
+    
+    .timeline-item:nth-child(odd) {
+      padding-right: calc(50% + 30px);
+      text-align: right;
+    }
+    
+    .timeline-item:nth-child(even) {
+      padding-left: calc(50% + 30px);
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    
+    .timeline-date {
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    
+    .timeline-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Education Section */
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .education-card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .education-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .education-card h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    
+    .education-card .degree {
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    
+    .education-card .date {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+    
+    .education-card .grade {
+      font-weight: 500;
+    }
+    
+    /* Contact Section */
+    .contact-container {
+      display: flex;
+      gap: 50px;
+    }
+    
+    .contact-info {
+      flex: 1;
+    }
+    
+    .contact-info h3 {
+      margin-bottom: 20px;
+    }
+    
+    .contact-details {
+      margin-bottom: 30px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .contact-item i {
+      width: 40px;
+      height: 40px;
+      background: var(--light-gray);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: var(--primary);
+    }
+    
+    .contact-form {
+      flex: 1;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid var(--light-gray);
+      border-radius: 6px;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .form-group textarea {
+      min-height: 150px;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-links a {
+      color: white;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-social a {
+      color: white;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-social a:hover {
+      color: var(--primary);
+    }
+    
+    .copyright {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-container,
+      .about-content,
+      .contact-container {
+        flex-direction: column;
+      }
+      
+      .hero-text,
+      .about-text,
+      .contact-info {
+        text-align: center;
+      }
+      
+      .hero-buttons,
+      .social-icons {
+        justify-content: center;
+      }
+      
+      .timeline::before {
+        left: 30px;
+      }
+      
+      .timeline-item:nth-child(odd),
+      .timeline-item:nth-child(even) {
+        padding-left: 70px;
+        padding-right: 0;
+        text-align: left;
+      }
+      
+      .timeline-dot {
+        left: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <div class="logo">Thiru</div>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-container">
+      <div class="hero-text">
+        <h1>Hi, I'm <span>Thirumalai M</span></h1>
+        <p>
+          A passionate Full Stack Developer and B.Tech IT undergraduate with expertise in MEAN/MERN stack, cloud architecture, and AI integration. Certified AWS Cloud Architect with experience in building scalable web applications and innovative solutions.
+        </p>
+        <div class="social-icons">
+          <a href="https://github.com/Thiru-1820" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/thirumalaim" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="mailto:thirumalaimuruqavel@gmail.com"><i class="fas fa-envelope"></i></a>
+          <a href="https://thiru-personal-portfolio.vercel.app" target="_blank"><i class="fas fa-globe"></i></a>
+        </div>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn">Contact Me</a>
+          <a href="#projects" class="btn btn-outline">View Projects</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Developer at work"/>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <h2>About Me</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>
+            I'm a tech enthusiast and problem-solver passionate about leveraging technology to build intuitive digital solutions. Currently pursuing my B.Tech in Information Technology at Thiagarajar College of Engineering with a CGPA of 8.47.
+          </p>
+          <p>
+            My professional objective is to secure a challenging role in a forward-thinking organization where I can apply my technical expertise, problem-solving abilities, and innovative mindset. I'm eager to contribute to meaningful projects, tackle new challenges, and continuously enhance my skills.
+          </p>
+          <p>
+            Beyond coding, I'm an active basketball player (winner of the Interdepartmental Basketball Tournament 2024-25) and enjoy exploring stock markets, photography, and solving chess puzzles.
+          </p>
+          <div class="hero-buttons">
+            <a href="#contact" class="btn">Get In Touch</a>
+            <a href="./assets/resume.pdf" download class="btn btn-outline">Download Resume</a>
+          </div>
+        </div>
+        <div class="about-image">
+          <img src="./assets/dp.png" alt="Thirumalai M"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <h2>Technical Skills</h2>
+      <div class="skills-container">
+        <div class="skills-grid">
+          <div class="skill-card">
+            <i class="fab fa-java"></i>
+            <h4>Java</h4>
+          </div>
+          <div class="skill-card">
+            <i class="fab fa-python"></i>
+            <h4>Python</h4>
+          </div>
+          <div class="skill-card">
+            <i class="fab fa-js"></i>
+            <h4>JavaScript</h4>
+          </div>
+          <div class="skill-card">
+            <i class="fab fa-angular"></i>
+            <h4>Angular</h4>
+          </div>
+          <div class="skill-card">
+            <i class="fab fa-react"></i>
+            <h4>React</h4>
+          </div>
+          <div class="skill-card">
+            <i class="fab fa-node-js"></i>
+            <h4>Node.js</h4>
+          </div>
+          <div class="skill-card">
+            <i class="fas fa-database"></i>
+            <h4>MongoDB</h4>
+          </div>
+          <div class="skill-card">
+            <i class="fas fa-fire"></i>
+            <h4>Firebase</h4>
+          </div>
+          <div class="skill-card">
+            <i class="fab fa-aws"></i>
+            <h4>AWS Cloud</h4>
+          </div>
+          <div class="skill-card">
+            <i class="fab fa-git-alt"></i>
+            <h4>Git</h4>
+          </div>
+          <div class="skill-card">
+            <i class="fas fa-mobile-alt"></i>
+            <h4>Android Dev</h4>
+          </div>
+          <div class="skill-card">
+            <i class="fas fa-brain"></i>
+            <h4>AI/ML</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <h2>Featured Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Vision Partner Project"/>
+          </div>
+          <div class="project-content">
+            <h3>Vision Partner</h3>
+            <div class="project-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">YOLOv10</span>
+              <span class="tech-tag">AI</span>
+            </div>
+            <p>Comprehensive visual assistance for the blind using advanced object detection technology to enhance their independence and safety by identifying and describing objects in their environment.</p>
+            <div class="project-links">
+              <a href="https://github.com/Thiru-1820/Object_detection-using-Yolov10-git" target="_blank" class="btn btn-outline">View Project</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="E-commerce Website"/>
+          </div>
+          <div class="project-content">
+            <h3>E-commerce Website</h3>
+            <div class="project-tech">
+              <span class="tech-tag">Angular</span>
+              <span class="tech-tag">JSON Server</span>
+              <span class="tech-tag">UI/UX</span>
+            </div>
+            <p>Designed a prototype of an e-commerce website using Angular framework, demonstrating features such as product browsing, search functionality, and purchasing processes.</p>
+            <div class="project-links">
+              <a href="https://angular-ecom-website.vercel.app/" target="_blank" class="btn btn-outline">View Project</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Company Portfolio"/>
+          </div>
+          <div class="project-content">
+            <h3>Company Portfolio</h3>
+            <div class="project-tech">
+              <span class="tech-tag">Angular</span>
+              <span class="tech-tag">Web Design</span>
+              <span class="tech-tag">UI/UX</span>
+            </div>
+            <p>Developed a portfolio website for a company to highlight its services and projects, improving its online visibility and client engagement.</p>
+            <div class="project-links">
+              <a href="https://company-portfolio-two-omega.vercel.app/" target="_blank" class="btn btn-outline">View Project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <h2>Experience & Achievements</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2025</div>
+          <div class="timeline-content">
+            <h3>Finalist - National-Level Hackathon by PALS Innovah</h3>
+            <p>Reached finals conducted at IIT Madras Campus, showcasing innovative problem-solving skills.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2025</div>
+          <div class="timeline-content">
+            <h3>Runners Up - HACKFEST (2025)</h3>
+            <p>Six-hour hackathon conducted at TCE IT department, demonstrating rapid prototyping skills.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2024</div>
+          <div class="timeline-content">
+            <h3>Designer of the Year</h3>
+            <p>Honored with this award at the prestigious Flutter Fiesta workshop organized by TCE IT department.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2024</div>
+          <div class="timeline-content">
+            <h3>First Place - Conceptual Colloquium</h3>
+            <p>Achieved top honors in this competitive event organized by the Assistive Technology Club.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2023</div>
+          <div class="timeline-content">
+            <h3>Web Development Intern - Highra Tech Solutions</h3>
+            <p>Completed a 3-week internship gaining hands-on experience in web development technologies.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="container">
+      <h2>Education</h2>
+      <div class="education-grid">
+        <div class="education-card">
+          <h3>Thiagarajar College of Engineering</h3>
+          <div class="degree">B.Tech in Information Technology</div>
+          <div class="date">2022 - 2026 (Expected)</div>
+          <p>Anna University Affiliated</p>
+          <div class="grade">CGPA: 8.47/10 (up to 5th Semester)</div>
+        </div>
+        
+        <div class="education-card">
+          <h3>Model School Tharamangalam</h3>
+          <div class="degree">Higher Secondary Education (XII)</div>
+          <div class="date">2020 - 2022</div>
+          <p>State Board</p>
+          <div class="grade">Percentage: 91.6%</div>
+        </div>
+        
+        <div class="education-card">
+          <h3>Model School Tharamangalam</h3>
+          <div class="degree">Secondary Education (X)</div>
+          <div class="date">2020</div>
+          <p>State Board</p>
+          <div class="grade">Percentage: 91.6%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2>Get In Touch</h2>
+      <div class="contact-container">
+        <div class="contact-info">
+          <h3>Contact Information</h3>
+          <div class="contact-details">
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <span>thirumalaimuruqavel@gmail.com</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <span>+91 9965812960</span>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Thiagarajar College of Engineering, Madurai-625015</span>
+            </div>
+          </div>
+          <div class="social-icons">
+            <a href="https://github.com/Thiru-1820" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/thirumalaim" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://thiru-personal-portfolio.vercel.app" target="_blank"><i class="fas fa-globe"></i></a>
+          </div>
+        </div>
+        <div class="contact-form">
+          <form>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-logo">Thirumalai M</div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://github.com/Thiru-1820" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/thirumalaim" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:thirumalaimuruqavel@gmail.com"><i class="fas fa-envelope"></i></a>
+        <a href="https://thiru-personal-portfolio.vercel.app" target="_blank"><i class="fas fa-globe"></i></a>
+      </div>
+      <p class="copyright">© 2025 Thirumalai M. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

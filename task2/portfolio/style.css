@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    background: #f9f9ff;
+    color: #333;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .logo {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #5465FF;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 40px;
+    flex-wrap: wrap;
+  }
+  
+  .hero-text {
+    max-width: 600px;
+  }
+  
+  .hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero-text p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  .social-icons a {
+    font-size: 1.5rem;
+    margin-right: 15px;
+    color: #333;
+  }
+  
+  .hero-buttons .btn {
+    display: inline-block;
+    margin-right: 15px;
+    padding: 10px 20px;
+    background: #5465FF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .hero-buttons .btn.secondary {
+    background: #9BB1FF;
+    color: black;
+  }
+  
+  .hero-image img {
+    max-width: 450px;
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  section {
+    padding: 60px 40px;
+  }
+  
+  #skills ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style: none;
+  }
+  
+  #skills li {
+    background: #BFD7FF;
+    padding: 10px 15px;
+    border-radius: 5px;
+  }
+  
+  .project {
+    margin-bottom: 20px;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 20px;
+    background: #E2FDFF;
+  }
+  
