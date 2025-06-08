@@ -2,19 +2,20 @@ import datetime
 import json
 import os
 import pyttsx3
-import speech_recognition as sr
-import difflib
 
-# Initialize text-to-speech
+# Initialize TTS engine
 engine = pyttsx3.init('sapi5')
 engine.setProperty('rate', 160)
 
 # Data storage
 DATA_FILE = 'data.json'
-data = {
-    "notes": [],
-    "todo": []
-}
+data = {"notes": [], "todo": []}
+
+# Speak function
+def speak(text):
+    print("Bot:", text)
+    engine.say(text)
+    engine.runAndWait()
 
 # Load existing data
 def load_data():
@@ -27,137 +28,106 @@ def save_data():
     with open(DATA_FILE, 'w') as f:
         json.dump(data, f)
 
-# Speak output
-def speak(text):
-    print("Bot:", text)
-    engine.say(text)
-    engine.runAndWait()
+# Simple NLP - find keyword
+def contains(text, keywords):
+    return any(k in text for k in keywords)
 
-# Listen from mic
-def listen():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("🎤 Listening...")
-        r.adjust_for_ambient_noise(source)
-        audio = r.listen(source)
-    try:
-        return r.recognize_google(audio).lower()
-    except sr.UnknownValueError:
-        speak("Sorry, I didn’t catch that. Please type it.")
-        return input("You: ").lower()
-    except sr.RequestError:
-        speak("Voice recognition not available. Please type.")
-        return input("You: ").lower()
-
-# Find intent using fuzzy match
-def intent_match(user_input, possible_phrases, cutoff=0.6):
-    matches = difflib.get_close_matches(user_input, possible_phrases, n=1, cutoff=cutoff)
-    return matches[0] if matches else None
-
-# Possible actions
-intents = {
-    "greeting": ["hi", "hello", "hey"],
-    "bye": ["bye", "exit", "quit"],
-    "name": ["your name", "who are you", "what is your name"],
-    "menu": ["menu", "help"],
-    "features": ["what can you do", "your features", "what do you do"],
-    "get_time": ["what time", "current time", "tell me time"],
-    "get_date": ["what date", "current date", "today date"],
-    "remember_note": ["remember", "note this", "save note"],
-    "show_notes": ["what did you remember", "show notes", "recall notes"],
-    "add_task": ["add to-do", "add task", "add to list", "new task"],
-    "show_tasks": ["show list", "to-do list", "show tasks", "my tasks"],
-    "clear_notes": ["clear notes", "delete all notes"],
-    "clear_tasks": ["clear list", "clear tasks", "reset to-do"]
-}
-
-def detect_intent(user_input):
-    for intent, phrases in intents.items():
-        if any(p in user_input for p in phrases):
-            return intent
-        match = intent_match(user_input, phrases)
-        if match:
-            return intent
-    return None
-
-# Show menu
-def show_menu():
-    speak("I can help you remember notes, manage your to-do list, and tell you the time or date.")
-
-# Main response generator
+# Generate response
 def generate_response(user_input):
-    intent = detect_intent(user_input)
+    user_input = user_input.lower()
 
-    if intent == "greeting":
-        return "Hello! How can I assist you?", False
+    if contains(user_input, ["exit", "quit", "bye"]):
+        return "Goodbye! Have a nice day.", True
 
-    if intent == "bye":
-        return "Goodbye! Take care.", True
+    elif contains(user_input, ["your name", "who are you"]):
+        return "I am AssistBot, your personal chatbot.", False
 
-    if intent == "name":
-        return "I am AssistBot, your personal assistant.", False
+    elif contains(user_input, ["hello", "hi", "hey"]):
+        return "Hello there! How can I help you today?", False
 
-    if intent == "menu":
-        show_menu()
-        return "", False
+    elif contains(user_input, ["what can you do", "help", "features"]):
+        tasks = [
+            "1. Greet you",
+            "2. Tell the current time and date",
+            "3. Remember notes",
+            "4. Show or clear notes",
+            "5. Manage your to-do list",
+            "6. Do simple math (like 2 + 3)",
+            "7. Tell a joke",
+            "8. (Mock) Weather update",
+            "9. Exit"
+        ]
+        return "I can:\n" + "\n".join(tasks), False
 
-    if intent == "features":
-        return "I can manage your to-do list, remember notes, and tell you the time or date.", False
+    elif contains(user_input, ["time"]):
+        now = datetime.datetime.now().strftime("%I:%M %p")
+        return f"The time is {now}", False
 
-    if intent == "get_time":
-        return "The time is " + datetime.datetime.now().strftime("%I:%M %p"), False
+    elif contains(user_input, ["date"]):
+        today = datetime.date.today().strftime("%B %d, %Y")
+        return f"Today's date is {today}", False
 
-    if intent == "get_date":
-        return "Today's date is " + datetime.date.today().strftime("%B %d, %Y"), False
-
-    if intent == "remember_note":
-        speak("What would you like me to remember?")
-        note = listen()
+    elif contains(user_input, ["remember", "note this"]):
+        speak("What should I remember?")
+        note = input("You: ")
         if note:
             data['notes'].append(note)
             save_data()
-            return f"I'll remember that: {note}", False
+            return f"I will remember: {note}", False
         return "I didn't get the note clearly.", False
 
-    if intent == "show_notes":
+    elif contains(user_input, ["what did you remember", "show notes"]):
         if data['notes']:
-            return "Here’s what I remember:\n" + "\n".join(f"- {n}" for n in data['notes']), False
-        return "I don’t have any notes yet.", False
+            return "Here are your notes:\n" + "\n".join(f"- {n}" for n in data['notes']), False
+        return "You have no notes saved.", False
 
-    if intent == "add_task":
-        speak("What task should I add to your list?")
-        task = listen()
+    elif contains(user_input, ["clear notes", "delete notes"]):
+        data['notes'].clear()
+        save_data()
+        return "All notes have been cleared.", False
+
+    elif contains(user_input, ["add task", "add to-do", "new task"]):
+        speak("What task should I add?")
+        task = input("You: ")
         if task:
             data['todo'].append(task)
             save_data()
-            return f"Added task: {task}", False
+            return f"Task added: {task}", False
         return "I didn't get the task clearly.", False
 
-    if intent == "show_tasks":
+    elif contains(user_input, ["show list", "to-do", "tasks"]):
         if data['todo']:
             return "Here’s your to-do list:\n" + "\n".join(f"- {t}" for t in data['todo']), False
         return "Your to-do list is empty.", False
 
-    if intent == "clear_notes":
-        data['notes'].clear()
-        save_data()
-        return "All notes cleared.", False
-
-    if intent == "clear_tasks":
+    elif contains(user_input, ["clear tasks", "clear list"]):
         data['todo'].clear()
         save_data()
-        return "To-do list cleared.", False
+        return "All to-do tasks cleared.", False
 
-    return "I’m not sure how to help with that. Say 'menu' for help.", False
+    elif contains(user_input, ["calculate", "+", "-", "*", "/"]):
+        try:
+            result = eval(user_input)
+            return f"The answer is {result}", False
+        except:
+            return "Sorry, I couldn't calculate that.", False
 
-# Main chatbot loop
+    elif contains(user_input, ["joke"]):
+        return "Why don't programmers like nature? It has too many bugs!", False
+
+    elif contains(user_input, ["weather"]):
+        return "It's sunny with a chance of AI takeover! (Just kidding 😄)", False
+
+    else:
+        return "Sorry, I didn't understand. Type 'help' to see what I can do.", False
+
+# Chat loop
 def chatbot():
     load_data()
-    speak("Hi! I am AssistBot. How can I help you today?")
-    show_menu()
+    speak("Hi! I am AssistBot. Type something to begin.")
 
     while True:
-        user_input = listen()
+        user_input = input("You: ")
         response, should_exit = generate_response(user_input)
         if response:
             speak(response)
